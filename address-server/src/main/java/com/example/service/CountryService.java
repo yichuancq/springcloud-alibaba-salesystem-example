@@ -23,7 +23,7 @@ public interface CountryService extends IService<Country> {
      * @param pageRequest
      * @return
      */
-    IPage<Country> findByPage(PageRequest pageRequest);
+    IPage<Country> findByPage(Country country,PageRequest pageRequest);
 
     /**
      * 添加或者更新国家信息

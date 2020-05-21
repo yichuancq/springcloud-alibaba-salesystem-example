@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,7 +9,6 @@ import com.example.domain.Country;
 import com.example.request.PageRequest;
 import com.example.service.CountryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,27 +21,26 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional
-public class CountryServiceImpl extends ServiceImpl<CountryDao, Country> implements CountryService {
-
-    @Autowired
-    private CountryDao countryDao;
+public class CountryServiceImpl extends ServiceImpl<CountryDao, Country>
+        implements CountryService {
 
     /**
      * @return
      */
     @Override
     public List<Country> findAllCountry() {
-        return countryDao.selectList(null);
+        return this.list(null);
     }
 
     /**
      * 分页查询
      *
+     * @param queryCountry
      * @param pageRequest
      * @return
      */
     @Override
-    public IPage<Country> findByPage(PageRequest pageRequest) {
+    public IPage<Country> findByPage(Country queryCountry, PageRequest pageRequest) {
 
         log.info("pageRequest:{}", pageRequest.toString());
         //需要在Config配置类中配置分页插件
@@ -50,7 +49,20 @@ public class CountryServiceImpl extends ServiceImpl<CountryDao, Country> impleme
         pageParams.setCurrent(pageRequest.getPageNumber());
         //每页条数
         pageParams.setSize(pageRequest.getPageSize());
-        pageParams = this.page(pageParams);
+        //
+        QueryWrapper<Country> queryWrapper = new QueryWrapper<>();
+        //国家Id
+        if (queryCountry != null && queryCountry.getCountryId() != null) {
+            queryWrapper.eq("countryId", queryCountry.getCountryId());
+        }
+        //国家名称条件
+        if (queryCountry != null && queryCountry.getCountry() != null) {
+            //全匹配 %param%
+            queryWrapper.like("country", queryCountry.getCountry());
+            //右匹配 param%
+            //queryWrapper.likeRight("country", queryCountry.getCountry());
+        }
+        pageParams = this.page(pageParams, queryWrapper);
         return pageParams;
     }
 

@@ -54,11 +54,13 @@ public class CountryController {
     @ApiOperation(value = "/findPagerCountry", notes = "分页查询所有国家信息列表")
     @PostMapping("/findPagerCountry")
     @ResponseBody
-    public ResponseResultData<?> findPagerCountry(@RequestBody PageRequest pageRequest) {
+    public ResponseResultData<?> findPagerCountry(@RequestBody Country queryCountry,
+                                                  @ModelAttribute PageRequest pageRequest) {
         try {
             log.info("pageRequest:{}", pageRequest.toString());
+            log.info("queryCountry:{}", queryCountry.toString());
             //需要在Config配置类中配置分页插件
-            IPage<Country> page = countryService.findByPage(pageRequest);
+            IPage<Country> page = countryService.findByPage(queryCountry, pageRequest);
             return new ResponseResultData<>(200, page);
         } catch (Exception ex) {
             ex.printStackTrace();
