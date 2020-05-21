@@ -19,9 +19,18 @@ public interface CountryService extends IService<Country> {
 
     /**
      * 条件分页查询
+     *
      * @param pageRequest
      * @return
      */
     IPage<Country> findByPage(PageRequest pageRequest);
+
+    /**
+     * 添加或者更新国家信息
+     *
+     * @param country
+     * @return
+     */
+    boolean saveOrUpdateCountry(Country country);
 
 }

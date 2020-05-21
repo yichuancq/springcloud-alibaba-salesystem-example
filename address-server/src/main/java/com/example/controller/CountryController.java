@@ -45,6 +45,12 @@ public class CountryController {
         return null;
     }
 
+    /**
+     * 分页查询所有国家信息列表
+     *
+     * @param pageRequest
+     * @return
+     */
     @ApiOperation(value = "/findPagerCountry", notes = "分页查询所有国家信息列表")
     @PostMapping("/findPagerCountry")
     @ResponseBody
@@ -54,6 +60,28 @@ public class CountryController {
             //需要在Config配置类中配置分页插件
             IPage<Country> page = countryService.findByPage(pageRequest);
             return new ResponseResultData<>(200, page);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info("error:{}", ex.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 添加或者更新国家信息
+     *
+     * @param country
+     * @return
+     */
+    @ApiOperation(value = "/saveCountry", notes = "添加或者更新国家信息")
+    @PostMapping("/saveCountry")
+    @ResponseBody
+    public ResponseResultData<?> saveCountry(@RequestBody Country country) {
+        try {
+            log.info("country:{}", country.toString());
+            //需要在Config配置类中配置分页插件
+            boolean flag = countryService.saveOrUpdateCountry(country);
+            return new ResponseResultData<>(200, flag);
         } catch (Exception ex) {
             ex.printStackTrace();
             log.info("error:{}", ex.getMessage());

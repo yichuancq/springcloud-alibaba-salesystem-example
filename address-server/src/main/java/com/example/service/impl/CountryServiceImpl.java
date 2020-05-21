@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,5 +52,21 @@ public class CountryServiceImpl extends ServiceImpl<CountryDao, Country> impleme
         pageParams.setSize(pageRequest.getPageSize());
         pageParams = this.page(pageParams);
         return pageParams;
+    }
+
+    /**
+     * 添加或者更新国家信息
+     *
+     * @param country
+     * @return
+     */
+    @Override
+    public boolean saveOrUpdateCountry(Country country) {
+        if (country == null) {
+            return false;
+        }
+        //最后修改时间
+        country.setLastUpdate(new Date());
+        return this.saveOrUpdate(country);
     }
 }
