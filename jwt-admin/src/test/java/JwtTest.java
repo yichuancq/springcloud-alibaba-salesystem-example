@@ -16,6 +16,9 @@ import java.util.Map;
 @Slf4j
 public class JwtTest {
 
+    /**
+     * 测试自定义异常信息
+     */
     @Test
     public void testException() {
         try {
@@ -25,6 +28,9 @@ public class JwtTest {
         }
     }
 
+    /**
+     * 测试自定义返回结果
+     */
     @Test
     public void testResult() {
         ResponseResultData resultData = new ResponseResultData();
