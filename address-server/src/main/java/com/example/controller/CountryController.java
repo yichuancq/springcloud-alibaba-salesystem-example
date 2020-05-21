@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -33,8 +34,9 @@ public class CountryController {
     @ApiOperation(value = "/findAllCountry", notes = "查询所有国家信息列表")
     @GetMapping("/findAllCountry")
     @ResponseBody
-    public ResponseResultData<?> findAllCountry() {
+    public ResponseResultData<?> findAllCountry(HttpServletRequest httpServletRequest) {
         try {
+            log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("findAllCountry");
             List<Country> countryList = countryService.findAllCountry();
             return new ResponseResultData<>(200, countryList);
@@ -55,8 +57,9 @@ public class CountryController {
     @PostMapping("/findPagerCountry")
     @ResponseBody
     public ResponseResultData<?> findPagerCountry(@RequestBody Country queryCountry,
-                                                  @ModelAttribute PageRequest pageRequest) {
+                                                  @ModelAttribute PageRequest pageRequest, HttpServletRequest httpServletRequest) {
         try {
+            log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("pageRequest:{}", pageRequest.toString());
             log.info("queryCountry:{}", queryCountry.toString());
             //需要在Config配置类中配置分页插件
@@ -78,8 +81,9 @@ public class CountryController {
     @ApiOperation(value = "/saveCountry", notes = "添加或者更新国家信息")
     @PostMapping("/saveCountry")
     @ResponseBody
-    public ResponseResultData<?> saveCountry(@RequestBody Country country) {
+    public ResponseResultData<?> saveCountry(@RequestBody Country country, HttpServletRequest httpServletRequest) {
         try {
+            log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("country:{}", country.toString());
             //需要在Config配置类中配置分页插件
             boolean flag = countryService.saveOrUpdateCountry(country);

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional
 public class CountryServiceImpl extends ServiceImpl<CountryDao, Country>
         implements CountryService {
 
@@ -40,6 +40,7 @@ public class CountryServiceImpl extends ServiceImpl<CountryDao, Country>
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public IPage<Country> findByPage(Country queryCountry, PageRequest pageRequest) {
 
         log.info("pageRequest:{}", pageRequest.toString());
@@ -59,8 +60,6 @@ public class CountryServiceImpl extends ServiceImpl<CountryDao, Country>
         if (queryCountry != null && queryCountry.getCountry() != null) {
             //全匹配 %param%
             queryWrapper.like("country", queryCountry.getCountry());
-            //右匹配 param%
-            //queryWrapper.likeRight("country", queryCountry.getCountry());
         }
         pageParams = this.page(pageParams, queryWrapper);
         return pageParams;
@@ -68,11 +67,14 @@ public class CountryServiceImpl extends ServiceImpl<CountryDao, Country>
 
     /**
      * 添加或者更新国家信息
+     * rollbackFor = {RuntimeException.class, SQLException.class}
+     * 该属性用于设置需要进行回滚的异常类数组，当方法中抛出指定异常数组中的异常时，则进行事务回滚
      *
      * @param country
      * @return
      */
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class, SQLException.class})
     public boolean saveOrUpdateCountry(Country country) {
         if (country == null) {
             return false;
