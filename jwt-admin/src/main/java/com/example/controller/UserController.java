@@ -19,7 +19,6 @@ import java.util.Map;
 @RestController
 public class UserController {
 
-
     /**
      * sayHello
      *
