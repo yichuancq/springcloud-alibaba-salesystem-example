@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Country;
 import com.example.request.PageRequest;
 import com.example.response.ResponseResultData;
@@ -53,12 +52,7 @@ public class CountryController {
         try {
             log.info("pageRequest:{}", pageRequest.toString());
             //需要在Config配置类中配置分页插件
-            IPage<Country> page = new Page<>();
-            //当前页
-            page.setCurrent(pageRequest.getPageNumber());
-            //每页条数
-            page.setSize(pageRequest.getPageSize());
-            page = countryService.page(page);
+            IPage<Country> page = countryService.findByPage(pageRequest);
             return new ResponseResultData<>(200, page);
         } catch (Exception ex) {
             ex.printStackTrace();
