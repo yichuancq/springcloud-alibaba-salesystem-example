@@ -11,5 +11,12 @@
 
     <artifactId>address-server</artifactId>
 
-
+    <dependencies>
+        <!--引入公用模块-->
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
