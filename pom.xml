@@ -21,8 +21,11 @@
         <module>commons</module>
         <!--jwt admin-->
         <module>jwt-admin</module>
+        <!--jwt 网关-->
+        <!--https://github.com/crazylai1996/spring-cloud-gateway-jwt-->
+        <module>jwt-gateway</module>
         <!--auth后端-->
-        <module>auth-server</module>
+        <module>oauth-server</module>
         <!--影片管理-->
         <module>film-server</module>
         <!--雇员-->
