@@ -35,6 +35,10 @@
         <module>eureka-server</module>
         <!--认证服务-->
         <module>oauth-server</module>
+        <!--缓存模块-->
+        <module>cache</module>
+        <!--sso服务模块-->
+        <module>sso-server</module>
     </modules>
 
     <dependencies>
