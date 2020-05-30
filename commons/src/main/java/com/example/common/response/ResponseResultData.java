@@ -40,6 +40,13 @@ public class ResponseResultData<T> implements Serializable {
         this.code = code;
     }
 
+    public ResponseResultData(Integer code, String message, Map resultMap) {
+        this.code = code;
+        this.message = message;
+        this.resultMap = resultMap;
+    }
+
+
     public ResponseResultData(Integer code, String message, T data, Map resultMap) {
         this.code = code;
         this.message = message;

@@ -1,0 +1,57 @@
+#服务端口
+server:
+  port: 8082
+
+spring:
+  application:
+    # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
+    name: oauth2-server
+    #配置数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_oauth2?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    #sql-script-encoding: utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+      database: mysql
+      show-sql: true
+      hibernate:
+        #ddl-auto: create
+        #ddl-auto: none
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5Dialect
+#服务注册发现
+eureka:
+  instance:
+    appname: oauth2-server # name
+    prefer-ip-address: true # ip show
+
+  client: #客户端注册进eureka服务列表内
+    register-with-eureka: true #
+    fetch-registry: true #是否从eureka上获取注册信息
+    service-url:
+      #
+      defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
+
+# log level
+logging.level:
+  root: Info
+  org.springframework: Info
+  org.apache.coyote.http11.Http11InputBuffer: Info
+#
+logging:
+  file:
+    path: logs/log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

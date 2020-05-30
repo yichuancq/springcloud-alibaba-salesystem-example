@@ -7,11 +7,6 @@ spring:
   application:
     # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
     name: address-server
-    #添加security 后设置账号密码
-    security:
-      user:
-        name: "user"
-        password: "password"
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,7 +17,7 @@ spring:
 # mybatis-plus相关配置
 mybatis-plus:
   #实体位置
-  type-aliases-package: com.example.domain
+  type-aliases-package: com.example.address.domain
   # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
   mapper-locations: classpath:mybatis/mapper/*.xml
   # 以下配置均有默认值,可以不设置

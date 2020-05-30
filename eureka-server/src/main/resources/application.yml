@@ -8,10 +8,6 @@ spring:
 
 #eureka cfg
 eureka:
-  #此处设置会改变eureka控制台的显示
-  datacenter: cloud
-  #此处设置会改变eureka控制台的显示
-  environment: prod
 
   instance:
     hostname: localhost

@@ -3,6 +3,7 @@ package com.example.admin;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
@@ -12,10 +13,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @author: yichuan
  * @create time: 2020/05/30 11:10
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableAdminServer
 @EnableDiscoveryClient
-@EnableEurekaClient //本服务启动后，会自动注册到 Eureka 服务中
+@EnableEurekaClient
 public class AdminServerApplication {
     //http://localhost:8099/#/applications
     public static void main(String[] args) {
