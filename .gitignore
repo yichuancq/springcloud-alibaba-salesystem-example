@@ -13,3 +13,4 @@
 /store-server/target/
 /cache/target/
 /jwt-gateway/target/
+/logs/
