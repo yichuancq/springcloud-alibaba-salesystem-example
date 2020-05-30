@@ -2,8 +2,9 @@ server:
   port: 8099
   tomcat:
     uri-encoding: UTF-8
-    max-threads: 200
-    min-spare-threads: 18
+    threads:
+      max: 200
+      min-spare: 18
 
 spring:
   application:

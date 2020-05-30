@@ -2,7 +2,11 @@
 # 配置端口
 server:
   port: 8081
+
 spring:
+  application:
+    # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
+    name: address-server
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -34,3 +38,17 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+#服务注册发现
+eureka:
+  instance:
+    appname: address-server # name
+    prefer-ip-address: true # ip show
+
+  client: #客户端注册进eureka服务列表内
+    register-with-eureka: true #
+    fetch-registry: true #是否从eureka上获取注册信息
+    service-url:
+      # http://localhost:8761/eureka/
+      defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
