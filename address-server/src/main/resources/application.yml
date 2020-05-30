@@ -7,6 +7,11 @@ spring:
   application:
     # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
     name: address-server
+    #添加security 后设置账号密码
+    security:
+      user:
+        name: "user"
+        password: "password"
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -39,7 +44,17 @@ mybatis-plus:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
+logging:
+  file:
+    path: logs/log
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 #服务注册发现
 eureka:
   instance:
