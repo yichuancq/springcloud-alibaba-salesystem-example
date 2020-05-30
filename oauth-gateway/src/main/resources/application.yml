@@ -8,25 +8,29 @@ spring:
 zuul:
   routes:
     # 权限服务器
-    auth:
-      path: /auth/**
+    api-oauth2:
+      path: /api/oauth/**
       serviceId: oauth2-server
       sensitiveHeaders: '*'
 
-    # 客户端
-    client:
-      path: /api/address-server/**
+    # address server
+    api-address:
+      path: /api/address/**
       serviceId: address-server
       sensitiveHeaders: '*'
+
   retryable: false
   ignored-services: '*'
+  add-proxy-headers: true
+
   ribbon:
     eager-load:
       enabled: true
   host:
     connect-timeout-millis: 3000
     socket-timeout-millis: 3000
-  add-proxy-headers: true
+
+
 
 eureka:
   instance:
@@ -40,11 +44,11 @@ eureka:
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:${server.port}/auth/oauth/token
-      user-authorization-uri: http://localhost:${server.port}/auth/oauth/authorize
+      access-token-uri: http://localhost:${server.port}/api/oauth/token
+      user-authorization-uri: http://localhost:${server.port}/api/oauth/authorize
       client-id: web
     resource:
-      user-info-uri: http://localhost:${server.port}/auth/api/address-server
+      user-info-uri: http://localhost:${server.port}/auth/api/address
       prefer-token-info: false
 
 logging:
