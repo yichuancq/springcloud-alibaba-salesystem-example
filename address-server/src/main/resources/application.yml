@@ -62,3 +62,9 @@ eureka:
     service-url:
       # http://localhost:8761/eureka/
       defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
+
+security:
+  oauth2:
+    resource:
+      id: address-server
+      user-info-uri: http://localhost:90001/auth/api/address-server #验证传入的令牌

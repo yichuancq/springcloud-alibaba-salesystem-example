@@ -75,11 +75,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
     /**
      * http请求设置
      */
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        http.requestMatchers()
+                .antMatchers("/oauth/**")
+                .and().authorizeRequests()
+                .antMatchers("/oauth/**")
+                .authenticated().and().csrf().disable();
+        //
         http.authorizeRequests()
                 //不拦截登录相关方法
                 .antMatchers("/login/**", "/login")

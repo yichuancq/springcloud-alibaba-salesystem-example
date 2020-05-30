@@ -8,6 +8,7 @@ import com.example.common.response.ResponseResultData;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +21,21 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/api")
 public class CountryController {
 
     @Autowired
     private CountryService countryService;
+
+    /***
+     *
+     */
+    @GetMapping("/query")
+    @PreAuthorize("hasAnyAuthority('query')")
+    public String query() {
+        return "具有query权限";
+    }
+
 
     /**
      * 查询所有国家信息列表

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class RoleController {
     private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private RoleApplication roleApplication;
 
