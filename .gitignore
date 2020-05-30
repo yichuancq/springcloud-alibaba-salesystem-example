@@ -1,2 +1,15 @@
 /.idea/
 /springcloud-alibaba-salesystem-example.iml
+/address-server/target/
+/commons/target/
+/eureka-server/target/
+/film-server/target/
+/jwt-admin/target/
+/jwt-gateway/src/
+/oauth-server/target/
+/payment-server/target/
+/sso-server/target/
+/staff-server/target/
+/store-server/target/
+/cache/target/
+/jwt-gateway/target/
