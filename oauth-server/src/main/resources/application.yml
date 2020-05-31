@@ -24,19 +24,28 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL5Dialect
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
 #服务注册发现
 eureka:
   instance:
     appname: oauth2-server # name
     prefer-ip-address: true # ip show
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
   client: #客户端注册进eureka服务列表内
     register-with-eureka: true #
     fetch-registry: true #是否从eureka上获取注册信息
     service-url:
-      #
       defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
-
 # log level
 logging.level:
   root: Info

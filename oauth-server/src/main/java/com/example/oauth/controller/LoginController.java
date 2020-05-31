@@ -38,7 +38,6 @@ public class LoginController {
      */
     @ApiOperation(value = "login", notes = "login")
     @PostMapping("/login")
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseResultData login(UserInfo userInfo, HttpServletRequest request) {
         logger.info("登录=>login");
         logger.info("userInfo:{}", userInfo);

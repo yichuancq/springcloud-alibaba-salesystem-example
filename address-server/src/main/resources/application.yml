@@ -39,9 +39,7 @@ mybatis-plus:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-logging:
-  file:
-    path: logs/log
+
 management:
   endpoints:
     web:
@@ -54,6 +52,7 @@ management:
 eureka:
   instance:
     appname: address-server # name
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true # ip show
 
   client: #客户端注册进eureka服务列表内
@@ -67,4 +66,13 @@ security:
   oauth2:
     resource:
       id: address-server
-      user-info-uri: http://localhost:90001/auth/api/address-server #验证传入的令牌
+      user-info-uri: http://localhost:9001/auth/api/address-server #验证传入的令牌
+
+logging:
+  file:
+    path: logs/log
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+#    org.springframework.boot.autoconfigure: DEBUG

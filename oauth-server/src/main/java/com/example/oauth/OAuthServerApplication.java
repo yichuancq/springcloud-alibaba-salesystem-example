@@ -1,9 +1,13 @@
 package com.example.oauth;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * @calss name OAuthServerApplication
@@ -14,9 +18,24 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableDiscoveryClient
 @EnableEurekaClient
 @SpringBootApplication
-public class OAuthServerApplication {
+@EnableResourceServer
+@Slf4j
+public class OAuthServerApplication implements CommandLineRunner {
     public static void main(String[] args) {
-
         SpringApplication.run(OAuthServerApplication.class, args);
+
+    }
+
+    /**
+     * @param args
+     * @throws Exception
+     */
+    @Override
+    public void run(String... args) throws Exception {
+        String passWord = "android";
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        log.info("加密后字符串:{}", encoder.encode(passWord));
+
+
     }
 }

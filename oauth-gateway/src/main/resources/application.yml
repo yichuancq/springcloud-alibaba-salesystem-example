@@ -1,5 +1,6 @@
 server:
   port: 9001
+  #address: localhost
 
 spring:
   application:
@@ -9,14 +10,16 @@ zuul:
   routes:
     # 权限服务器
     api-oauth2:
-      path: /api/oauth/**
+      path: /auth/**
       serviceId: oauth2-server
+      #sensitiveHeaders:
       sensitiveHeaders: '*'
 
     # address server
     api-address:
-      path: /api/address/**
+      path: /address/**
       serviceId: address-server
+      #sensitiveHeaders:
       sensitiveHeaders: '*'
 
   retryable: false
@@ -30,13 +33,11 @@ zuul:
     connect-timeout-millis: 3000
     socket-timeout-millis: 3000
 
-
-
 eureka:
   instance:
     prefer-ip-address: true
     appname: zuul-oauth-gateway # name
-    #instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
     service-url:
       defaultZone: http://localhost:9000/eureka/
@@ -44,8 +45,8 @@ eureka:
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:${server.port}/api/oauth/token
-      user-authorization-uri: http://localhost:${server.port}/api/oauth/authorize
+      access-token-uri: http://localhost:${server.port}/auth/oauth/token
+      user-authorization-uri: http://localhost:${server.port}/auth/oauth/authorize
       client-id: web
     resource:
       user-info-uri: http://localhost:${server.port}/auth/api/address
@@ -70,7 +71,7 @@ ribbon:
   MaxAutoRetriesNextServer: 2
   eureka:
     enabled: true
-
+#
 hystrix:
   command:
     default:
@@ -79,4 +80,4 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 3500
+            timeoutInMilliseconds: 40000

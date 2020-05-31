@@ -60,7 +60,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     public Page<SysRole> findAllByPage(SysRole sysRole, int pageNumber, int pageSize) {
 
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
-
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by(order));
         Specification<SysRole> specification = (Specification<SysRole>) (root, query, cb) -> {
             List<Predicate> predicateList = new ArrayList<Predicate>();

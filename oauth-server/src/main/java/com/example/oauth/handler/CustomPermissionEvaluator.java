@@ -23,6 +23,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 
     @Autowired
     private SysPermissionService permissionService;
+
     @Autowired
     private SysRoleService roleService;
 

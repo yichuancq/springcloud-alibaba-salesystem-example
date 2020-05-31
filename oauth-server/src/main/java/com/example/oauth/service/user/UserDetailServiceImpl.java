@@ -1,5 +1,7 @@
 package com.example.oauth.service.user;
+
 import com.example.oauth.domain.UserInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +11,8 @@ import org.springframework.stereotype.Service;
 /**
  *
  */
-@Service
+@Service("userDetailsService")
+@Slf4j
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -24,11 +27,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         UserInfo userInfo = userInfoService.findUserByName(username);
         if (userInfo == null) {
             throw new UsernameNotFoundException("用户名称不存在");
         }
+        log.info("user :{}", userInfo.toString());
         return userInfo;
     }
 }

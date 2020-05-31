@@ -8,11 +8,12 @@ spring:
 
 #eureka cfg
 eureka:
-
   instance:
     hostname: localhost
     #hostname: 192.168.0.100
     appname: yichuan-eureka-server # name
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
     Connection: Keep-Alive
     prefer-ip-address: true # ip show
     #app-group-name: cloud-server
