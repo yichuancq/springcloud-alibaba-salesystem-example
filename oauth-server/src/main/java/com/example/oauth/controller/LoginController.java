@@ -33,47 +33,6 @@ public class LoginController {
     /**
      * @return
      */
-//    @ApiOperation(value = "login", notes = "login")
-//    @PostMapping("/login")
-//    public ResponseResultData login(UserInfo userInfo, HttpServletRequest request) {
-//        logger.info("登录=>login");
-//        logger.info("userInfo:{}", userInfo);
-//        HttpSession httpSession = request.getSession();
-//        logger.info("sessionId:{}", httpSession.getId());
-//        return new ResponseResultData(200, "登录成功");
-//    }
-
-    /**
-     * @return
-     */
-//    @ApiOperation(value = "logout", notes = "logout")
-//    @GetMapping("/logout")
-//    public String loginOut(HttpServletRequest request, HttpServletResponse response) {
-//        logger.error("登录退出=>loginOut");
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null) {
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//        request.setAttribute("msg", "logout");
-//        return "logout";
-//    }
-//
-//    @ApiOperation(value = "loginOutSuccess", notes = "loginOutSuccess")
-//    @GetMapping("/loginOutSuccess")
-//    public String loginOutSuccess(HttpServletRequest request, HttpServletResponse response) {
-//        logger.error("登录退出成功=>loginOutSuccess");
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null) {
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//        logger.info("用户user:{}", auth.getName());
-//        request.setAttribute("msg", auth.getName() + ",登录退出成功");
-//        return "logoutOutSuccess";
-//    }
-
-    /**
-     * @return
-     */
     @ApiOperation(value = "findUserByName", notes = "findUserByName")
     @GetMapping("/findUserByName")
     @PreAuthorize("hasRole('游客') or hasRole('管理员')")
@@ -82,15 +41,16 @@ public class LoginController {
         return ResponseEntity.ok(userInfo);
     }
 
-
     @GetMapping("hello")
-    @PreAuthorize("hasAnyAuthority('hello')")
+    @ApiOperation(value = "hello", notes = "hello")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String hello() {
         return "hello";
     }
 
     @GetMapping("query")
-    @PreAuthorize("hasAnyAuthority('query')")
+    @ApiOperation(value = "query", notes = "query")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public String query() {
         return "query";
     }

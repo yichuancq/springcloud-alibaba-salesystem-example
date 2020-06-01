@@ -31,9 +31,18 @@ public class CountryController {
      *
      */
     @GetMapping("/query")
-    @PreAuthorize("hasAnyAuthority('query')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String query() {
         return "具有query权限";
+    }
+
+
+    /***
+     *
+     */
+    @GetMapping("/test")
+    public String test() {
+        return "test";
     }
 
 
@@ -90,7 +99,8 @@ public class CountryController {
      */
     @ApiOperation(value = "/saveCountry", notes = "添加或者更新国家信息")
     @PostMapping("/saveCountry")
-    public ResponseResultData<?> saveCountry(@RequestBody Country country, HttpServletRequest httpServletRequest) {
+    public ResponseResultData<?> saveCountry(@RequestBody Country country,
+                                             HttpServletRequest httpServletRequest) {
         try {
             log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("country:{}", country.toString());

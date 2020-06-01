@@ -36,9 +36,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.requestMatchers()
-                .antMatchers("/oauth/**").
-                and()
+                .antMatchers("/oauth/**")
+                .and()
                 .authorizeRequests()
+                //排除过滤actuator，结合服务注册中心
+                .antMatchers("/actuator/**", "/actuator")
+                .permitAll()
+                // swagger start
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/configuration/security").permitAll()
+                //swagger end
                 .antMatchers("/oauth/**")
                 .authenticated().and().csrf().disable();
     }

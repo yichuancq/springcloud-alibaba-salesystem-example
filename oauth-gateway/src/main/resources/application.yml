@@ -1,6 +1,5 @@
 server:
   port: 9001
-  #address: localhost
 
 spring:
   application:
@@ -9,14 +8,14 @@ spring:
 zuul:
   routes:
     # 权限服务器
-    api-oauth2:
+    oauth2-server:
       path: /auth/**
       serviceId: oauth2-server
       #sensitiveHeaders:
       sensitiveHeaders: '*'
 
-    # address server
-    api-address:
+    # address路由
+    address-server:
       path: /address/**
       serviceId: address-server
       #sensitiveHeaders:

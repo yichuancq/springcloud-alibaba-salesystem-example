@@ -15,7 +15,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class BaseUser extends User {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = BaseUser.class.hashCode();
     /**
      * 客户端id
      */

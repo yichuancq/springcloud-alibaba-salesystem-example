@@ -66,7 +66,7 @@ security:
   oauth2:
     resource:
       id: address-server
-      user-info-uri: http://localhost:9001/auth/api/address-server #验证传入的令牌
+      user-info-uri: http://localhost:9001/auth/api/address/ #验证传入的令牌
 
 logging:
   file:

@@ -13,8 +13,7 @@ import java.util.List;
 
 @Entity
 public class UserInfo extends BaseEntity implements UserDetails {
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = UserInfo.class.hashCode();
     @Id
     @GeneratedValue
     @Column(name = "role_id")

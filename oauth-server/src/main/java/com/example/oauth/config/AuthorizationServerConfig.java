@@ -1,6 +1,7 @@
 package com.example.oauth.config;
 
 import com.example.oauth.config.error.MssWebResponseExceptionTranslator;
+import com.example.oauth.config.redis.RedisTokenStore;
 import com.example.oauth.service.user.UserDetailServiceImpl;
 import com.example.oauth.util.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  * @calss name AuthorizationServerConfig
