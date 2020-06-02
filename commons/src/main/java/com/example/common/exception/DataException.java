@@ -18,6 +18,14 @@ public class DataException extends Exception {
     public DataException() {
     }
 
+    /**
+     * @param resultCode
+     */
+    public DataException(ResultCode resultCode) {
+        this.errorCode = resultCode.code();
+        this.errorMessage = resultCode.message();
+    }
+
     public DataException(Integer errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;

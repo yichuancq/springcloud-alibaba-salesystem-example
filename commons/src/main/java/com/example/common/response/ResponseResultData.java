@@ -1,5 +1,7 @@
 package com.example.common.response;
 
+import com.example.common.exception.ResultCode;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -28,6 +30,51 @@ public class ResponseResultData<T> implements Serializable {
 
     public ResponseResultData() {
     }
+
+    /**
+     * 直接传入 resultCode
+     *
+     * @param resultCode
+     */
+    public ResponseResultData(ResultCode resultCode) {
+        this.code = resultCode.code();
+        this.message = resultCode.message();
+    }
+
+    /**
+     * 直接传入 resultCode和泛型数据
+     *
+     * @param resultCode
+     * @param data
+     */
+    public ResponseResultData(ResultCode resultCode, T data) {
+        this.code = resultCode.code();
+        this.message = resultCode.message();
+        this.data = data;
+    }
+
+    /**
+     * @param resultCode
+     * @param data
+     * @param resultMap
+     */
+    public ResponseResultData(ResultCode resultCode, T data, Map<String, Object> resultMap) {
+        this.code = resultCode.code();
+        this.message = resultCode.message();
+        this.data = data;
+        this.resultMap = resultMap;
+    }
+
+    /**
+     * @param resultCode
+     * @param resultMap
+     */
+    public ResponseResultData(ResultCode resultCode, Map<String, Object> resultMap) {
+        this.code = resultCode.code();
+        this.message = resultCode.message();
+        this.resultMap = resultMap;
+    }
+
 
     public ResponseResultData(Integer code, T data) {
         this.data = data;

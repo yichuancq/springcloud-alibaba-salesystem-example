@@ -70,6 +70,7 @@ ribbon:
   MaxAutoRetriesNextServer: 2
   eureka:
     enabled: true
+
 #
 hystrix:
   command:
