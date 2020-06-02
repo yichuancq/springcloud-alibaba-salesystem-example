@@ -3,6 +3,7 @@ package com.example.address.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.address.domain.Country;
 import com.example.address.service.CountryService;
+import com.example.common.exception.ResultCode;
 import com.example.common.request.PageRequest;
 import com.example.common.response.ResponseResultData;
 import io.swagger.annotations.ApiOperation;
@@ -59,7 +60,7 @@ public class CountryController {
             log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("findAllCountry");
             List<Country> countryList = countryService.findAllCountry();
-            return new ResponseResultData<>(200, countryList);
+            return new ResponseResultData<>(ResultCode.SUCCESS, countryList);
         } catch (Exception ex) {
             ex.printStackTrace();
             log.info("error:{}", ex.getMessage());
@@ -83,7 +84,7 @@ public class CountryController {
             log.info("queryCountry:{}", queryCountry.toString());
             //需要在Config配置类中配置分页插件
             IPage<Country> page = countryService.findByPage(queryCountry, pageRequest);
-            return new ResponseResultData<>(200, page);
+            return new ResponseResultData<>(ResultCode.SUCCESS, page);
         } catch (Exception ex) {
             ex.printStackTrace();
             log.info("error:{}", ex.getMessage());
@@ -105,7 +106,7 @@ public class CountryController {
             log.info("token:{}", httpServletRequest.getHeader("token"));
             log.info("country:{}", country.toString());
             boolean flag = countryService.saveOrUpdateCountry(country);
-            return new ResponseResultData<>(200, flag);
+            return new ResponseResultData<>(ResultCode.SUCCESS, flag);
         } catch (Exception ex) {
             ex.printStackTrace();
             log.info("error:{}", ex.getMessage());
