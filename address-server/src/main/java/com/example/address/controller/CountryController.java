@@ -31,8 +31,9 @@ public class CountryController {
     /***
      *
      */
+    @ApiOperation(value = "/query", notes = "有管理员角色的可以操作query")
     @GetMapping("/query")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String query() {
         log.info("query");
         return "具有query权限";
@@ -40,12 +41,22 @@ public class CountryController {
 
 
     /***
-     *
+     *不允许访问
      */
     @GetMapping("/test")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String test() {
         log.info("test");
         return "test";
+    }
+
+    /***
+     *
+     */
+    @GetMapping("/show")
+    public String show() {
+        log.info("show");
+        return "show";
     }
 
 
@@ -55,6 +66,7 @@ public class CountryController {
      * @return
      */
     @ApiOperation(value = "/findAllCountry", notes = "查询所有国家信息列表")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping("/findAllCountry")
     @ResponseBody
     public ResponseResultData<?> findAllCountry(HttpServletRequest httpServletRequest) {
@@ -76,6 +88,7 @@ public class CountryController {
      * @param pageRequest
      * @return
      */
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ApiOperation(value = "/findPagerCountry", notes = "分页查询所有国家信息列表")
     @PostMapping("/findPagerCountry")
     public ResponseResultData<?> findPagerCountry(@RequestBody Country queryCountry,
@@ -102,6 +115,7 @@ public class CountryController {
      */
     @ApiOperation(value = "/saveCountry", notes = "添加或者更新国家信息")
     @PostMapping("/saveCountry")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseResultData<?> saveCountry(@RequestBody Country country,
                                              HttpServletRequest httpServletRequest) {
         try {
