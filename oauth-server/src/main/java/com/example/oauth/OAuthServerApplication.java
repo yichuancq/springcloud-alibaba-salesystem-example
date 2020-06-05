@@ -21,8 +21,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Slf4j
 
 public class OAuthServerApplication implements CommandLineRunner {
-    //https://blog.csdn.net/Victor_An/article/details/81510874
-    //https://blog.csdn.net/yileilaile/article/details/102495847
+    //
+    //ok
+    //http://localhost:9001/auth/test?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
+
     public static void main(String[] args) {
         SpringApplication.run(OAuthServerApplication.class, args);
 

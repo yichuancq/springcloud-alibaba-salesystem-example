@@ -17,11 +17,22 @@ public class UserController {
         return user;
     }
 
+    /**
+     * 请求方式
+     * http://localhost:9001/auth/test?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
+     *
+     * @return
+     */
     @GetMapping("/test")
     public String test() {
         return "call test";
     }
 
+    /**
+     * http://localhost:9001/auth/query?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
+     *
+     * @return
+     */
     @GetMapping("/query")
     public String query() {
         return "call query";

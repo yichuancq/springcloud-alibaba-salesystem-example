@@ -106,7 +106,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // 该client允许的授权类型
                 .authorizedGrantTypes("password")
                 // 允许的授权范围
-                .scopes("app");
+                .scopes("all");
     }
 
     /**
