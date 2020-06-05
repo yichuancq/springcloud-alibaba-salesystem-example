@@ -21,6 +21,13 @@ zuul:
       #sensitiveHeaders:
       sensitiveHeaders: '*'
 
+    # film路由
+    film-server:
+      path: /film/**
+      serviceId: film-server
+      #sensitiveHeaders:
+      sensitiveHeaders: '*'
+
   retryable: false
   ignored-services: '*'
   add-proxy-headers: true
