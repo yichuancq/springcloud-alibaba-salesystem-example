@@ -19,17 +19,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @SpringBootApplication
 @EnableResourceServer
 @Slf4j
-
+//http://localhost:9001/auth/test?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
 public class OAuthServerApplication implements CommandLineRunner {
-    //
-    //ok
-    //http://localhost:9001/auth/test?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
-
-    public static void main(String[] args) {
-        SpringApplication.run(OAuthServerApplication.class, args);
-
-    }
-
     /**
      * @param args
      * @throws Exception
@@ -38,4 +29,10 @@ public class OAuthServerApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
     }
+
+    public static void main(String[] args) {
+        SpringApplication.run(OAuthServerApplication.class, args);
+
+    }
+
 }

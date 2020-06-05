@@ -1,21 +1,34 @@
 package com.example.oauth.controller;
 
-import com.example.oauth.domain.base.BaseUser;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 /**
  * @author yichuan
  */
 @Api(value = "/api")
 @RestController
+@Slf4j
 public class UserController {
 
-    @GetMapping("/user")
-    public BaseUser user(BaseUser user) {
-        return user;
+
+    /**
+     * 用于获取当前token的用户信息
+     *
+     * @param principal
+     * @return
+     */
+    @GetMapping(value = "/user")
+    public Principal getUser(Principal principal) {
+        if (principal != null) {
+            log.info(principal.toString());
+        }
+        return principal;
     }
 
     /**
@@ -26,6 +39,7 @@ public class UserController {
      */
     @GetMapping("/test")
     public String test() {
+        log.info("call test");
         return "call test";
     }
 
@@ -36,6 +50,7 @@ public class UserController {
      */
     @GetMapping("/query")
     public String query() {
+        log.info("call query");
         return "call query";
     }
 
@@ -45,6 +60,7 @@ public class UserController {
     @GetMapping("/role")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String role() {
+        log.info("call role");
         return "call role";
     }
 
@@ -54,6 +70,7 @@ public class UserController {
     @GetMapping("/showUser")
     @PreAuthorize("hasAuthority('sys:user:show')")
     public String showUser() {
+        log.info("call showUser");
         return "call showUser";
     }
 }
