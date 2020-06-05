@@ -1,5 +1,6 @@
 package com.example.oauth.domain.base;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,8 +15,8 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@Data
 public class BaseUser extends User {
-    private static final long serialVersionUID = BaseUser.class.hashCode();
     /**
      * 客户端id
      */

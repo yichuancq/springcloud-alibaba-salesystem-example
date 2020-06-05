@@ -65,15 +65,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("android").scopes("read")
+                .withClient("android")
+                //定义访问的作用域
+                .scopes("all")
                 // 加密
-                // .secret(new BCryptPasswordEncoder().encode("android"))
                 .secret(DigestUtil.encrypt("android"))
+                // 支持的授权模式 密码模式
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
-                .and().withClient("webapp").scopes("read")
+                .and().withClient("webapp")
+                .scopes("all")
                 .authorizedGrantTypes("implicit")
                 .and().withClient("browser")
-                .authorizedGrantTypes("refresh_token", "password").scopes("read");
+                .authorizedGrantTypes("refresh_token", "password")
+                .scopes("all");
     }
 
 
@@ -96,13 +100,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
-        // tokenServices.setClientDetailsService(clientDetails());
         // token有效期自定义设置，默认12小时
         tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
-        // tokenServices.setAccessTokenValiditySeconds(60 * 60 * 12);
         // refresh_token默认30天
         tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
-        // tokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 7);
         return tokenServices;
     }
 
