@@ -2,6 +2,7 @@ package com.example.oauth.controller;
 
 import com.example.oauth.domain.base.BaseUser;
 import io.swagger.annotations.Api;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +37,23 @@ public class UserController {
     @GetMapping("/query")
     public String query() {
         return "call query";
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/role")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String role() {
+        return "call role";
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/showUser")
+    @PreAuthorize("hasAuthority('sys:user:show')")
+    public String showUser() {
+        return "call showUser";
     }
 }
