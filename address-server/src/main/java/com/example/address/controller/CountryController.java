@@ -20,9 +20,9 @@ import java.util.List;
  *
  * @author yichuan
  */
-@Slf4j
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class CountryController {
 
     @Autowired
@@ -34,6 +34,7 @@ public class CountryController {
     @GetMapping("/query")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String query() {
+        log.info("query");
         return "具有query权限";
     }
 
@@ -43,6 +44,7 @@ public class CountryController {
      */
     @GetMapping("/test")
     public String test() {
+        log.info("test");
         return "test";
     }
 

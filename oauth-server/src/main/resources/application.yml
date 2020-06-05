@@ -2,11 +2,16 @@
 server:
   port: 8082
 
+security:
+  oauth2:
+    authorization:
+      check-token-access: true
 spring:
   application:
     # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
     name: oauth2-server
-    #配置数据源
+
+  #配置数据源
   datasource:
     url: jdbc:mysql://localhost:3306/test_oauth2?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
@@ -39,6 +44,7 @@ eureka:
   client: #客户端注册进eureka服务列表内
     register-with-eureka: true #
     fetch-registry: true #是否从eureka上获取注册信息
+    registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
 # log level
