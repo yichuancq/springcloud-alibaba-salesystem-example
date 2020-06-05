@@ -8,7 +8,7 @@
 | :-----| :---- | :---- |
 | CLOUD-ADMIN-SERVER | 192.168.0.102:8099 | cloud-admin |
 | ADDRESS-SERVER | 192.168.0.102:8081 |地址信息API|
-| OAUTH2-SERVER | 192.168.0.102:8082 |oauth2|
+| OAUTH2-SERVER | 192.168.0.102:9002 |oauth2|
 | EUREKA-SERVER | 192.168.0.102:9000 | eureka-server|
 | ZUUL-OAUTH-GATEWAY | 192.168.0.102:9001 | gateway|
 
