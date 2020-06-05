@@ -1,23 +1,23 @@
 package com.example.oauth.config;
 
 import com.example.oauth.config.error.MssWebResponseExceptionTranslator;
-import com.example.oauth.config.redis.RedisTokenStore;
+import com.example.oauth.config.jdbc.JdbcTokenStores;
 import com.example.oauth.service.user.UserDetailServiceImpl;
 import com.example.oauth.util.DigestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @calss name AuthorizationServerConfig
@@ -35,16 +35,22 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+    private DataSource dataSource;
+
     /**
      * 用户认证器
      */
     @Autowired
     private UserDetailServiceImpl userDetailsService;
 
+    /**
+     * 声明TokenStore实现
+     *
+     * @return
+     */
     @Bean
-    public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+    public JdbcTokenStores tokenStore() {
+        return new JdbcTokenStores(dataSource);
     }
 
     /**
@@ -62,22 +68,48 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new MssWebResponseExceptionTranslator();
     }
 
+    @Bean
+    public ClientDetailsService clientDetails() {
+        return new JdbcClientDetailsService(dataSource);
+    }
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("android")
-                //定义访问的作用域
+
+//        clients.withClientDetails(clientDetails());
+
+
+        clients.inMemory().withClient("android")
+                //.authorizedGrantTypes("client_credentials")
                 .scopes("all")
-                // 加密
                 .secret(DigestUtil.encrypt("android"))
-                // 支持的授权模式 密码模式
+                .authorities("ROLE_ADMIN", "ROLE_USER")
+                .and()
+                .withClient("browser")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
-                .and().withClient("webapp")
                 .scopes("all")
-                .authorizedGrantTypes("implicit")
-                .and().withClient("browser")
+                .accessTokenValiditySeconds(60 * 60 * 24 * 7)
+                .refreshTokenValiditySeconds(60 * 60 * 24 * 7)
+                .authorities("ROLE_ADMIN", "ROLE_USER")
                 .authorizedGrantTypes("refresh_token", "password")
                 .scopes("all");
+
+
+//        clients.inMemory()
+//                .withClient("android")
+//                //定义访问的作用域
+//                .scopes("all")
+//                // 加密
+//                .secret(DigestUtil.encrypt("android"))
+//                // 支持的授权模式 密码模式
+//                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+//                .and().withClient("webapp")
+//                .scopes("all")
+//                .authorizedGrantTypes("implicit")
+//                .and().withClient("browser")
+//                .authorizedGrantTypes("refresh_token", "password")
+//                .scopes("all");
     }
 
 
@@ -91,20 +123,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // refresh_token
                 .reuseRefreshTokens(false)
                 // 指定token存储位置
-                .tokenStore(tokenStore()).tokenServices(defaultTokenServices());
+                .tokenStore(tokenStore());
+        //.tokenServices(defaultTokenServices());
     }
 
-    @Primary
-    @Bean
-    public DefaultTokenServices defaultTokenServices() {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore());
-        tokenServices.setSupportRefreshToken(true);
-        // token有效期自定义设置，默认12小时
-        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
-        // refresh_token默认30天
-        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
-        return tokenServices;
-    }
+//    @Primary
+//    @Bean
+//    public DefaultTokenServices defaultTokenServices() {
+//        DefaultTokenServices tokenServices = new DefaultTokenServices();
+//        tokenServices.setTokenStore(tokenStore());
+//        tokenServices.setSupportRefreshToken(true);
+//        // token有效期自定义设置，默认12小时
+//        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
+//        // refresh_token默认30天
+//        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 24 * 7);
+//        return tokenServices;
+//    }
 
 }

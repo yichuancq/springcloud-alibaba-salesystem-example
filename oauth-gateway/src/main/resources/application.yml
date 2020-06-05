@@ -46,9 +46,10 @@ security:
     client:
       access-token-uri: http://localhost:${server.port}/auth/oauth/token
       user-authorization-uri: http://localhost:${server.port}/auth/oauth/authorize
-      client-id: web
+      client-id: adroid
     resource:
-      user-info-uri: http://localhost:${server.port}/auth/api/address
+      user-info-uri: http://localhost:${server.port}/address
+      #user-info-uri: http://localhost:${server.port}/auth/api/address
       prefer-token-info: false
 
 logging:

@@ -20,6 +20,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableResourceServer
 @Slf4j
 public class OAuthServerApplication implements CommandLineRunner {
+//    {
+//        "access_token": "bcd91593-07e9-453c-9cdf-f4cf8a8affeb",
+//            "token_type": "bearer",
+//            "expires_in": 43158,
+//            "scope": "all"
+//    }
     public static void main(String[] args) {
         SpringApplication.run(OAuthServerApplication.class, args);
 
