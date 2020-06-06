@@ -1,16 +1,15 @@
 #服务端口
-# 配置端口
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
     # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
-    name: address-server
+    name: keygen-server
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sakila?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/leaf_keygen?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -24,7 +23,7 @@ mybatis-plus:
   global-config:
     db-config:
       #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
-      id-type: auto
+      id-type: NONE
       #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
       field-strategy: NOT_EMPTY
       #数据库类型
@@ -50,7 +49,7 @@ management:
 #服务注册发现
 eureka:
   instance:
-    appname: address-server # name
+    appname: keygen-server # name
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true # ip show
 
@@ -58,14 +57,7 @@ eureka:
     register-with-eureka: true #
     fetch-registry: true #是否从eureka上获取注册信息
     service-url:
-      # http://localhost:8761/eureka/
       defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
-
-security:
-  oauth2:
-    resource:
-      id: address-server
-      user-info-uri: http://localhost:9001/auth/api/address/ #验证传入的令牌
 
 logging:
   file:

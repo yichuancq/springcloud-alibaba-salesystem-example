@@ -39,6 +39,8 @@
         <module>cloud-bus</module>
         <!--链路追踪-->
         <module>cloud-sleuth</module>
+        <!--分布式ID-->
+        <module>cloud-keygen-core</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
