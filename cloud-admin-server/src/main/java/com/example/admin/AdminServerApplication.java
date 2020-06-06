@@ -18,7 +18,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableDiscoveryClient
 @EnableEurekaClient
 public class AdminServerApplication {
-    //http://localhost:8099/#/applications
+    //http://localhost:7001/#/applications
     public static void main(String[] args) {
         SpringApplication.run(AdminServerApplication.class, args);
     }

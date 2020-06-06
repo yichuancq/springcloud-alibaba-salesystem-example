@@ -6,9 +6,10 @@
 
 | 服务名称 | addr-url | 备注 |
 | :-----| :---- | :---- |
-| CLOUD-ADMIN-SERVER | 192.168.0.102:8099 | cloud-admin |
+| OAUTH2-SERVER | 192.168.0.102:7000 |oauth2授权服务器|
+| CLOUD-ADMIN-SERVER | 192.168.0.102:7001 | cloud-admin |
 | ADDRESS-SERVER | 192.168.0.102:8081 |地址信息API|
-| OAUTH2-SERVER | 192.168.0.102:9002 |oauth2|
+| FILM-SERVER | 192.168.0.102:8083 |影片信息API|
 | EUREKA-SERVER | 192.168.0.102:9000 | eureka-server|
 | ZUUL-OAUTH-GATEWAY | 192.168.0.102:9001 | gateway|
 
