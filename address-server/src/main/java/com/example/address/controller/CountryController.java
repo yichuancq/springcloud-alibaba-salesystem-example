@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -26,7 +27,26 @@ import java.util.List;
 public class CountryController {
 
     @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
     private CountryService countryService;
+
+    /**
+     * http://localhost:9001/address/api/getGenkey?access_token=88f0a212-d6e9-473d-846d-a34a1614c484
+     * 查询全局ID生成器
+     *
+     * @return
+     */
+    @GetMapping("/getGenkey")
+    @ApiOperation(value = "/getGenkey", notes = "查询全局ID生成器")
+    public String getGenkey() {
+        final String url = "http://localhost:8080/api/segment/get/pay";
+        //final String url = "http://localhost:8082/api/segment/get/pay";
+        String response = restTemplate.getForObject(url, String.class);
+        log.info("response:{}", response);
+        return response;
+    }
 
     /***
      *
@@ -129,6 +149,5 @@ public class CountryController {
         }
         return null;
     }
-
 
 }
