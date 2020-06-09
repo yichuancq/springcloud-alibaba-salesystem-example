@@ -29,7 +29,7 @@ public class FilmController {
     }
 
     /***
-     *
+     *无权限访问
      */
     @GetMapping("/show")
     public String show() {

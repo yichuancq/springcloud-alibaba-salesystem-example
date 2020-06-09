@@ -92,22 +92,37 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 
     /***
+     *
+     * 对应数据表oauth_client_details
+     * SELECT * FROM test_oauth2.oauth_client_details
      * 配置能sso登陆的客户端
      * @param clients
      * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory() // 使用in-memory存储
-                .withClient("android")
-                // client_secret
-                .secret(new CustomPasswordEncoder().encode("123456"))
-                //passwordEncoder
-                // 该client允许的授权类型
-                .authorizedGrantTypes("password")
-                // 允许的授权范围
-                .scopes("all");
+        //这个地方指的是从jdbc查出数据来存储
+        clients.withClientDetails(clientDetails());
+//        clients.inMemory() // 使用in-memory存储
+//                .withClient("android")
+//                // client_secret
+//                .secret(new CustomPasswordEncoder().encode("123456"))
+//                //passwordEncoder
+//                // 该client允许的授权类型
+//                .authorizedGrantTypes("password")
+//                // 允许的授权范围
+//                .scopes("all");
     }
+
+    /***
+     * 这个是定义授权的请求的路径的Bean
+     * @return
+     */
+    @Bean
+    public ClientDetailsService clientDetails() {
+        return new JdbcClientDetailsService(dataSource);
+    }
+
 
     /**
      * @param endpoints

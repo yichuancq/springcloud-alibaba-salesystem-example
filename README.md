@@ -37,4 +37,76 @@
 
 ```
 
+#### oauth_client_details 表
+```mysql
 
+CREATE TABLE `oauth_client_details` (
+  `client_id` varchar(48) NOT NULL,
+  `resource_ids` varchar(256) DEFAULT NULL,
+  `client_secret` varchar(256) DEFAULT NULL,
+  `scope` varchar(256) DEFAULT NULL,
+  `authorized_grant_types` varchar(256) DEFAULT NULL,
+  `web_server_redirect_uri` varchar(256) DEFAULT NULL,
+  `authorities` varchar(256) DEFAULT NULL,
+  `access_token_validity` int(11) DEFAULT NULL,
+  `refresh_token_validity` int(11) DEFAULT NULL,
+  `additional_information` varchar(4096) DEFAULT NULL,
+  `autoapprove` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+``` 
+#### 这里配置好了之后我们的访问路径为:
+> 常用post请求方式
+> 这里我们用basic Auth的方式。需要填写Username:android，Password:123456
+> http://192.168.0.100:9001/auth/oauth/token?username=admin&password=123456&grant_type=password
+
+```text
+{
+    "access_token": "6b4f8ccf-6262-4ab2-9816-916cb939849f",
+    "token_type": "bearer",
+    "expires_in": 5358,
+    "scope": "all"
+}
+```
+#### 带access_token的访问的URL:
+
+> http://localhost:9001/film/api/show?access_token=6b4f8ccf-6262-4ab2-9816-916cb939849f
+```java
+    /***
+     *无权限访问
+     */
+    @GetMapping("/show")
+    public String show() {
+        log.info("show");
+        return "show";
+    }
+```
+#### 有权限返回show
+
+```text
+show
+```
+#### 带access_token的访问的URL:
+
+>http://localhost:9001/film/api/test?access_token=6b4f8ccf-6262-4ab2-9816-916cb939849f
+
+```java
+    /***
+     *不允许访问
+     */
+    @GetMapping("/test")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String test() {
+        log.info("test");
+        return "test";
+    }
+```
+#### 无权限返回,不允许访问
+
+```xml
+<oauth>
+ <error_description>不允许访问</error_description>
+ <error>access_denied</error>
+</oauth>
+```

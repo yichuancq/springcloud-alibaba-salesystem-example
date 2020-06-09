@@ -63,6 +63,8 @@ security:
 logging:
   file:
     path: logs/log
+  level: info
+
 management:
   endpoints:
     web:
