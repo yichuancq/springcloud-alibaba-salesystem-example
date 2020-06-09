@@ -57,8 +57,11 @@ security:
     resource:
       # 访问已经验证
       #user-info-uri: http://localhost:${server.port}/auth/api/
-      user-info-uri: http://localhost:${server.port}/address/api/
+      #user-info-uri: http://localhost:${server.port}/address/api/
+      user-info-uri: http://localhost:${server.port}/auth/api/user
       prefer-token-info: false
+      # loadBalanced
+      loadBalanced: true
 
 logging:
   file:
@@ -91,3 +94,9 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 40000
+
+# info信息会显示到SBA的server端，这里取的是maven中的数据
+info:
+  version: @project.version@
+  groupId: @project.groupId@
+  artifactId: @project.artifactId@

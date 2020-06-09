@@ -1,9 +1,14 @@
 package com.example.oauth.controller;
 
+import com.example.common.exception.ResultCode;
+import com.example.common.response.ResponseResultData;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -16,6 +21,8 @@ import java.security.Principal;
 @Slf4j
 public class UserController {
 
+    @Autowired
+    private ConsumerTokenServices consumerTokenServices;
 
     /**
      * 用于获取当前token的用户信息
@@ -72,5 +79,24 @@ public class UserController {
     public String showUser() {
         log.info("call showUser");
         return "call showUser";
+    }
+
+    /**
+     * @param access_token
+     * @return
+     */
+    @GetMapping(value = "/exit")
+    public @ResponseBody
+    ResponseResultData<?> revokeToken(String access_token) {
+        try {
+            if (consumerTokenServices.revokeToken(access_token)) {
+                return new ResponseResultData<>(ResultCode.SUCCESS);
+            }
+            return new ResponseResultData<>(ResultCode.FAIL);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.info("error:{}", ex.getMessage());
+        }
+        return null;
     }
 }

@@ -91,7 +91,7 @@ public class CountryController {
     @ResponseBody
     public ResponseResultData<?> findAllCountry(HttpServletRequest httpServletRequest) {
         try {
-            log.info("token:{}", httpServletRequest.getHeader("token"));
+            log.info("token:{}", httpServletRequest.getHeader("access_token"));
             log.info("findAllCountry");
             List<Country> countryList = countryService.findAllCountry();
             return new ResponseResultData<>(ResultCode.SUCCESS, countryList);
@@ -114,7 +114,7 @@ public class CountryController {
     public ResponseResultData<?> findPagerCountry(@RequestBody Country queryCountry,
                                                   @ModelAttribute PageRequest pageRequest, HttpServletRequest httpServletRequest) {
         try {
-            log.info("token:{}", httpServletRequest.getHeader("token"));
+            log.info("token:{}", httpServletRequest.getHeader("access_token"));
             log.info("pageRequest:{}", pageRequest.toString());
             log.info("queryCountry:{}", queryCountry.toString());
             //需要在Config配置类中配置分页插件
@@ -139,7 +139,7 @@ public class CountryController {
     public ResponseResultData<?> saveCountry(@RequestBody Country country,
                                              HttpServletRequest httpServletRequest) {
         try {
-            log.info("token:{}", httpServletRequest.getHeader("token"));
+            log.info("token:{}", httpServletRequest.getHeader("access_token"));
             log.info("country:{}", country.toString());
             boolean flag = countryService.saveOrUpdateCountry(country);
             return new ResponseResultData<>(ResultCode.SUCCESS, flag);

@@ -32,10 +32,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .httpBasic();
     }
 
+    /***
+     *
+     * @param resources
+     * @throws Exception
+     */
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         //重点，设置资源id
-        resources.resourceId("oauth2-server");
+        resources.resourceId("oauth2-resource");
 
     }
 }
