@@ -103,15 +103,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //这个地方指的是从jdbc查出数据来存储
         clients.withClientDetails(clientDetails());
-//        clients.inMemory() // 使用in-memory存储
-//                .withClient("android")
-//                // client_secret
-//                .secret(new CustomPasswordEncoder().encode("123456"))
-//                //passwordEncoder
-//                // 该client允许的授权类型
-//                .authorizedGrantTypes("password")
-//                // 允许的授权范围
-//                .scopes("all");
     }
 
     /***
@@ -140,7 +131,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // 指定token存储位置
                 .tokenStore(tokenStore());
     }
-
+    /**
+     * 创建一个默认的资源服务token
+     *
+     * @return
+     */
     @Primary
     @Bean
     public DefaultTokenServices defaultTokenServices() {
