@@ -54,8 +54,24 @@ CREATE TABLE `oauth_client_details` (
   `autoapprove` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
 ``` 
+#### oauth_client_details表里的数据如下
+```json
+[{
+	"client_id": "android",
+	"resource_ids": "oauth2-resource",
+	"client_secret": "123456",
+	"scope": "all",
+	"authorized_grant_types": "password",
+	"web_server_redirect_uri": null,
+	"authorities": "ROLE_ADMIN",
+	"access_token_validity": 7400,
+	"refresh_token_validity": 7400,
+	"additional_information": null,
+	"autoapprove": null
+}]
+```
+
 #### 这里配置好了之后我们的访问路径为:
 > 常用post请求方式
 > 这里我们用basic Auth的方式。需要填写Username:android，Password:123456
