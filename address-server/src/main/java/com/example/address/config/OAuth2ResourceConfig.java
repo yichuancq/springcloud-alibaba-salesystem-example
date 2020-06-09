@@ -18,6 +18,8 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 
 /***
  *
+ * 只需使用@EnableResourceServer注解便可以将Spring Boot 2.0工程配置为资源服务器，
+ * 并且只需新建一个ResourceServerConfigurerAdapter的子类， 便可以开启资源服务器的自定义配置
  * @author yichuan
  */
 @Configuration

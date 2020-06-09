@@ -25,7 +25,7 @@ public class UserController {
     private ConsumerTokenServices consumerTokenServices;
 
     /**
-     * 用于获取当前token的用户信息
+     * 供OAuth客户端获取认证对象时调用
      *
      * @param principal
      * @return

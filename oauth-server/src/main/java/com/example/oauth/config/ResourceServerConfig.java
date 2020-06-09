@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @calss name ResourceServerConfig
- * @description:
+ * @description: 资源服务配置
  * @author: yichuan
  * @create time: 2020/06/05 22:06
  */
@@ -18,10 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+    /**
+     * 设置资源id
+     */
+    private final static String resourceId = "oauth2-resource";
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+        http.csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException)
                         -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
@@ -40,7 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         //重点，设置资源id
-        resources.resourceId("oauth2-resource");
+        resources.resourceId(resourceId);
 
     }
 }
