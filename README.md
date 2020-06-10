@@ -6,12 +6,12 @@
 
 | 服务名称 | addr-url | 备注 |
 | :-----| :---- | :---- |
-| OAUTH2-SERVER | 192.168.0.102:8089 |oauth2授权服务器|
-| CLOUD-ADMIN-SERVER | 192.168.0.102:7001 | cloud-admin |
-| ADDRESS-SERVER | 192.168.0.102:8081 |地址信息API|
-| FILM-SERVER | 192.168.0.102:8083 |影片信息API|
-| EUREKA-SERVER | 192.168.0.102:9000 | eureka-server|
-| ZUUL-OAUTH-GATEWAY | 192.168.0.102:9001 | gateway|
+| OAUTH2-SERVER | http://localhost:192.168.0.102:8089 |oauth2授权服务器|
+| CLOUD-ADMIN-SERVER | http://localhost:192.168.0.102:7001 | cloud-admin |
+| ADDRESS-SERVER | http://localhost:192.168.0.102:8081 |地址信息API|
+| FILM-SERVER | http://localhost:192.168.0.102:8083 |影片信息API|
+| EUREKA-SERVER | http://localhost:192.168.0.102:9000 | eureka-server|
+| ZUUL-OAUTH-GATEWAY | http://localhost:192.168.0.102:9001 | gateway|
 
 
 #### zipkin 启动被监控应用，查看监控结果
