@@ -62,6 +62,7 @@ public class UserController {
     }
 
     /**
+     * http://localhost:9001/auth/role?access_token=9e72121a-f537-4657-87f8-90fcf8555d33
      * @return
      */
     @GetMapping("/role")

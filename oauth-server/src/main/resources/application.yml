@@ -1,11 +1,13 @@
 #服务端口
 server:
-  port: 7000
+  port: 8089
 
 security:
   oauth2:
     authorization:
       check-token-access: true
+
+
 spring:
   application:
     # 用于指定这个微服务名称，也就是在注册中心显示的名称，其他微服务同个这个名称调用服务
@@ -29,6 +31,20 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL5Dialect
+  # sleuth 配置
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      # 采样比例为: 0.1(即10%),设置的值介于0.0到1.0之间，1.0则表示全部采集。
+      probability: 1.0
+  # zipkin 配置
+  zipkin:
+    enabled: true
+    # 指定了Zipkin服务器的地址
+    base-url: http://localhost:9411  #http://localhost:9411/zipkin/
+
 #  redis:
 #    host: localhost
 #    port: 6379
@@ -47,6 +63,7 @@ eureka:
     registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: http://localhost:9000/eureka/ #这个地址就是在 Eureka 服务端的 application.yml 上暴露出的服务地址（这行后面加注释，可能会报错）
+
 # log level
 logging.level:
   root: info

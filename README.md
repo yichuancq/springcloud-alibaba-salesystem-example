@@ -6,12 +6,20 @@
 
 | 服务名称 | addr-url | 备注 |
 | :-----| :---- | :---- |
-| OAUTH2-SERVER | 192.168.0.102:7000 |oauth2授权服务器|
+| OAUTH2-SERVER | 192.168.0.102:8089 |oauth2授权服务器|
 | CLOUD-ADMIN-SERVER | 192.168.0.102:7001 | cloud-admin |
 | ADDRESS-SERVER | 192.168.0.102:8081 |地址信息API|
 | FILM-SERVER | 192.168.0.102:8083 |影片信息API|
 | EUREKA-SERVER | 192.168.0.102:9000 | eureka-server|
 | ZUUL-OAUTH-GATEWAY | 192.168.0.102:9001 | gateway|
+
+
+####zipkin web client
+>http://localhost:9411/zipkin
+
+| 服务名称 | addr-url | 备注 |
+| :-----| :---- | :---- |
+| zipkin | http://localhost:9411/zipkin |zipkin管理界面|
 
 >打包结果
 ```text

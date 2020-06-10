@@ -41,11 +41,32 @@ public class CountryController {
     @GetMapping("/getGenkey")
     @ApiOperation(value = "/getGenkey", notes = "查询全局ID生成器")
     public String getGenkey() {
-        final String url = "http://localhost:8080/api/segment/get/pay";
-        //final String url = "http://localhost:8082/api/segment/get/pay";
+        final String url = "http://localhost:8084/api/segment/get/pay";
         String response = restTemplate.getForObject(url, String.class);
         log.info("response:{}", response);
         return response;
+    }
+
+    /**
+     * http://localhost:9001/address/role
+     * 在请求的header里面添加access_token,传入到后端
+     *
+     * @return
+     */
+    @GetMapping("/role")
+    @ApiOperation(value = "/role", notes = "远程调用getRole")
+    public ResponseResultData getRole(HttpServletRequest httpServletRequest) {
+        final String token = httpServletRequest.getHeader("access_token");
+        log.info("token:{}", token);
+        try {
+            final String url = "http://localhost:9001/auth/role?access_token=" + token;
+            String result = restTemplate.getForObject(url, String.class);
+            log.info("response:{}", result);
+            return new ResponseResultData<>(ResultCode.SUCCESS, result);
+        } catch (Exception ex) {
+            log.info("error:{}", ex.getMessage());
+        }
+        return new ResponseResultData<>(ResultCode.FAIL);
     }
 
     /***

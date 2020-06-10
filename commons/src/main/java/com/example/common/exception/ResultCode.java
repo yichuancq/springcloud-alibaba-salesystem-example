@@ -7,7 +7,7 @@ package com.example.common.exception;
  */
 public enum ResultCode {
     /* 成功状态码 */
-    SUCCESS(0, "操作成功！"),
+    SUCCESS(1, "操作成功！"),
     /* 错误状态码 */
     FAIL(-1, "操作失败！"),
     /* 参数错误：10001-19999 */
