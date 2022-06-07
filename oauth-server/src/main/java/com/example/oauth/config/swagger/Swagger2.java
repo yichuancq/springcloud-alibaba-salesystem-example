@@ -17,20 +17,14 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class Swagger2 {
-
+    /**
+     * @return
+     */
     @Bean
     public Docket testApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("user")
-                .genericModelSubstitutes(DeferredResult.class)
-                .useDefaultResponseMessages(false)
-                .forCodeGeneration(true)
-                .pathMapping("/")
-                .select()
+        return new Docket(DocumentationType.SWAGGER_2).groupName("user").genericModelSubstitutes(DeferredResult.class).useDefaultResponseMessages(false).forCodeGeneration(true).pathMapping("/").select()
                 //过滤的接口
-                .paths(or(regex("/.*")))
-                .build()
-                .apiInfo(testApiInfo());
+                .paths(or(regex("/.*"))).build().apiInfo(testApiInfo());
     }
 
     private ApiInfo testApiInfo() {
@@ -38,14 +32,11 @@ public class Swagger2 {
                 //小标题
                 "oauth2-server-sample",
                 //版本
-                "0.1",
-                "NO terms of service",
+                "0.1", "NO terms of service",
                 //作者
                 "易川",
                 //链接显示文字
-                "yichuancq@163.com",
-                "http://www.apache.org/licenses/LICENSE-2.0.html"
-        );
+                "yichuancq@163.com", "http://www.apache.org/licenses/LICENSE-2.0.html");
         return apiInfo;
     }
 }

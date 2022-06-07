@@ -18,6 +18,7 @@ import java.util.Optional;
 
 /**
  *
+ * @author yichuan
  */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -60,6 +61,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoRepository.deleteById(id);
     }
 
+    /***
+     * 通过ID查询用户
+     * @param id
+     * @return
+     */
     @Override
     public UserInfo findUserById(Long id) {
         Optional<UserInfo> userInfo = userInfoRepository.findById(id);
@@ -70,6 +76,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     /**
+     * 分页查询
+     *
      * @param userInfo
      * @param pageNumber
      * @param pageSize

@@ -8,11 +8,10 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
-/**
- * @calss name JdbcTokenStores
- * @description:JdbcTokenStores
- * @author: yichuan
- * @create time: 2020/06/05 15:47
+
+/***
+ *
+ * @author yichuan
  */
 @Slf4j
 public class JdbcTokenStores extends JdbcTokenStore {
@@ -33,7 +32,6 @@ public class JdbcTokenStores extends JdbcTokenStore {
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         OAuth2AccessToken accessToken = null;
-
         try {
             accessToken = new DefaultOAuth2AccessToken(tokenValue);
         } catch (EmptyResultDataAccessException e) {

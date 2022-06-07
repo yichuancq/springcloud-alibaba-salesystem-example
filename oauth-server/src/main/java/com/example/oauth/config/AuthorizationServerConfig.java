@@ -24,7 +24,6 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import javax.sql.DataSource;
 
 /**
- * @calss name AuthorizationServerConfig
  * @description: 授权验证服务的配置类
  * @author: yichuan
  * @create time: 2020/05/31 22:23
@@ -62,9 +61,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients()
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+        security.allowFormAuthenticationForClients().tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     /**
@@ -132,6 +129,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // 指定token存储位置
                 .tokenStore(tokenStore());
     }
+
     /**
      * 创建一个默认的资源服务token
      *

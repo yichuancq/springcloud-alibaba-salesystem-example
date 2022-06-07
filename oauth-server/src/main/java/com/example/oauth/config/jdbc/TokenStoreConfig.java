@@ -7,11 +7,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.sql.DataSource;
 
-/**
- * @calss name TokenStoreConfig
- * @description:
- * @author: yichuan
- * @create time: 2020/06/05 16:38
+/***
+ *
+ * @author yichuan
  */
 @Configuration
 public class TokenStoreConfig {

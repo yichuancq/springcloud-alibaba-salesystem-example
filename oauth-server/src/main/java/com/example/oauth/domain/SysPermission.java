@@ -9,33 +9,46 @@ import java.util.List;
 
 @Entity
 public class SysPermission extends BaseEntity {
-
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue
-    private Long id;//主键
-    private String name;//名称.
+    private Long id;
 
+    /**
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 资源类型，[menu|button]
+     */
     @Column(columnDefinition = "enum('menu','button')")
-    private String resourceType;//资源类型，[menu|button]
+    private String resourceType;
 
-    private String url;//资源路径.
+    /**
+     * 资源路径
+     */
+    private String url;
     private String permission;
     private Boolean available = Boolean.FALSE;
-    //父编码
+    /**
+     * 父编码
+     **/
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_Id")
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
     @JsonIgnore
     private SysPermission parent;
-    //
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", fetch = FetchType.EAGER)
     private List<SysPermission> sysPermissionList;
-    //
+    /***懒加载***/
     @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)//懒加载
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<SysRole> sysRoleList;
-
 
     public Long getId() {
         return id;

@@ -27,9 +27,13 @@ public interface SysRoleService {
      */
     SysRole findRoleByRoleName(String roleName);
 
+    /**
+     * 删除角色
+     * @param id
+     */
     void deleteRoleById(Long id);
 
-    /**
+    /**分页查询
      * @return
      */
 
